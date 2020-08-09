@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="GoastJ Login"
+        android:text="GhostJ Login"
         android:textColor="#000"
         android:textSize="36dp"
         android:textStyle="bold"
