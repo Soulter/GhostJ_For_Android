@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView okok;
     private EditText inputOrder;
     private Button sendOrder;
+    private Button easyInput;
 
     Intent mIntent;
 
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         okok.setMovementMethod(ScrollingMovementMethod.getInstance());//滑动
         inputOrder = findViewById(R.id.input_order);
         sendOrder = findViewById(R.id.send_order);
+        easyInput = findViewById(R.id.easy_input);
 
         mIntent = new Intent(MainActivity.this,ConnService.class);
         startService(mIntent);
@@ -85,6 +87,13 @@ public class MainActivity extends AppCompatActivity {
                 }).start();
 
 
+            }
+        });
+
+        easyInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inputOrder.setText("!");
             }
         });
 
@@ -135,9 +144,7 @@ public class MainActivity extends AppCompatActivity {
                         public void run() {
 
                             //更新UI
-                            Log.v("TAG","msgAll:"+msgAll);
-                            okok.setText(""+msgAll);
-                            Log.v("TAG","ok:msgall");
+                                okok.setText(""+msgAll);
                             inputOrder.setText("");
                         }
                     });

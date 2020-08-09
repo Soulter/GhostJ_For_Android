@@ -31,9 +31,16 @@
             android:id="@+id/input_order"
             android:hint="Input here..."
             android:layout_width="wrap_content"
-            android:layout_weight="120"
+            android:layout_weight="500"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"/>
+
+        <Button
+            android:id="@+id/easy_input"
+            android:text="！"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/send_order"
             android:text="发送"
