@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.io.InputStream;
+
 public class ConnService extends Service {
 
     public static final String COUNTER = "msg";
     public static final String CODE = "codeID";
     public static final String ACTION_NAME = " com.soulter.goastjforandroid.ConnService.COUNTER_ACTION";
+
+    InputStream inputStream = null;
+
 
     @Override
     public void onCreate() {
@@ -36,7 +41,16 @@ public class ConnService extends Service {
                     while (loopagain == 0) {
                         try{
                             c=SocketManager.inputStreamReader.read();
+//
+//                            final byte[] buffer = new byte[2048];
+//                            inputStream = SocketManager.socket.getInputStream();
+//                            final int len = inputStream.read(buffer);
+//                            if (len > 0){
+//                                Log.v("testing",new String(buffer,0,len));
+//                                bridgeForActivity(new String(buffer,0,len),0);
+//                            }
 
+                            //指令检测
                             if((char)c=='!'){
                                 StringBuffer cmds=new StringBuffer("!");
                                 while(true){
@@ -117,7 +131,11 @@ public class ConnService extends Service {
                                         continue;
                                     }
                                 }
-                            }
+                            }//指令检测完毕
+
+
+
+
                             Log.v("TAG",String.valueOf((char)c));
                             bridgeForActivity(String.valueOf((char)c),0);
 

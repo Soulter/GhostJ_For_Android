@@ -35,8 +35,10 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = findViewById(R.id.login);
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
         final TextView loginStatus = findViewById(R.id.login_status);
-        loadingProgressBar.setVisibility(View.GONE);
 
+
+        //initial loading
+        loadingProgressBar.setVisibility(View.GONE);
         ipEditText.setText("39.100.5.139");
         portEditText.setText("1034");
         passwordEditText.setText("abbccc");
@@ -81,32 +83,6 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
-//
-//
-
-//
-//                            int c= MainActivity.inputStreamReader.read();
-//                            Log.v("TAG",String.valueOf((char)c));
-//                            if ((char)c == '!'){
-//                                StringBuffer cmds=new StringBuffer("!");
-//                                while(true){
-//                                    int c0=MainActivity.inputStreamReader.read();
-//                                    if((char)c0=='!') {
-//                                        cmds.append("!");
-//                                        break;
-//                                    }
-//                                    if ((char)c0=='\n') {
-//                                        cmds.append("\n");
-//                                        break;
-//                                    }
-//                                    cmds.append((char)c0);
-//
-//                                }
-//                                String cmd[]=cmds.toString().substring(0,cmds.length()-1).split(" ");
-//
-//                                if (cmd[0] )
-//                            }
-
 
                         } catch (Exception e) {
                             e.getStackTrace();
@@ -116,5 +92,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }

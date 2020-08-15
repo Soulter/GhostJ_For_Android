@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DiyOrderActivity"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/order_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="为该命令起个好听的名字吧"/>
+
+    <EditText
+        android:id="@+id/order_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:hint="命令内容..."
+        android:inputType="textMultiLine"
+        android:gravity="top|left"
+        android:layout_marginTop="36dp"/>
+
+    <Button
+        android:id="@+id/apply_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apply"
+        android:layout_marginTop="16dp"/>
+
+</LinearLayout>
