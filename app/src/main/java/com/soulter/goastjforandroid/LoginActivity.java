@@ -42,9 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //initial loading
         loadingProgressBar.setVisibility(View.GONE);
-//        ipEditText.setText("39.100.5.139");
-//        portEditText.setText("1034");
-//        passwordEditText.setText("abbccc");
+
 
         final SharedPreferences spfs = this.getSharedPreferences("spfs", Context.MODE_PRIVATE);
         final SharedPreferences.Editor editor = this.getSharedPreferences("spfs", Context.MODE_PRIVATE).edit();
