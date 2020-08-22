@@ -2,7 +2,9 @@ package com.soulter.goastjforandroid;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +17,7 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
+import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -39,9 +42,16 @@ public class LoginActivity extends AppCompatActivity {
 
         //initial loading
         loadingProgressBar.setVisibility(View.GONE);
-        ipEditText.setText("39.100.5.139");
-        portEditText.setText("1034");
-        passwordEditText.setText("abbccc");
+//        ipEditText.setText("39.100.5.139");
+//        portEditText.setText("1034");
+//        passwordEditText.setText("abbccc");
+
+        final SharedPreferences spfs = this.getSharedPreferences("spfs", Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = this.getSharedPreferences("spfs", Context.MODE_PRIVATE).edit();
+
+        ipEditText.setText(spfs.getString("ip",""));
+        portEditText.setText(spfs.getString("port",""));
+        passwordEditText.setText(spfs.getString("psw",""));
 
         String loginStatusStr = getIntent().getStringExtra(INTENT_EXTRA);
         if (loginStatusStr != null){
@@ -55,6 +65,13 @@ public class LoginActivity extends AppCompatActivity {
                 final String ip = ipEditText.getText().toString();
                 final String port = portEditText.getText().toString();
                 final String psw = passwordEditText.getText().toString();
+
+                editor.putString("ip",ip);
+                editor.apply();
+                editor.putString("port",port);
+                editor.apply();
+                editor.putString("psw",psw);
+                editor.apply();
 
                 new Thread(new Runnable() {
                     @Override
@@ -78,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                             SocketManager.bufferedWriter.write("#pw "+psw);
                             SocketManager.bufferedWriter.newLine();
                             SocketManager.bufferedWriter.flush();
-                            Thread.sleep(1000);
+                            Thread.sleep(500);
 
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);

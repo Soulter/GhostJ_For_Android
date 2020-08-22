@@ -13,9 +13,7 @@
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp">
+        android:layout_weight="10">
 
         <TextView
             android:id="@+id/okok"
@@ -35,22 +33,60 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+        <Button
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/easy_input_wow"
+            android:text="！"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/easy_input_wow_db"
+            android:text="! !"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/easy_input_up"
+            android:text="↑"
+            android:layout_gravity="end"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/easy_input_down"
+            android:text="↓"
+            android:layout_gravity="end"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
 
         <EditText
             android:id="@+id/input_order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="8dp"
             android:layout_weight="500"
             android:hint="Input here..." />
 
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/easy_input"
-            android:text="！"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content" />
 
         <Button
             android:background="?android:attr/selectableItemBackground"
@@ -59,8 +95,7 @@
             android:text="发送"
             android:layout_width="wrap_content"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

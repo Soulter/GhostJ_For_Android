@@ -7,8 +7,8 @@ android {
         applicationId "com.soulter.goastjforandroid"
         minSdkVersion 15
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.7.10"
+        versionCode 10
+        versionName "1.12.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

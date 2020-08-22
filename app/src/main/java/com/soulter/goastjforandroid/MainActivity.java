@@ -10,13 +10,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.method.ScrollingMovementMethod;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -42,8 +52,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView okok;
     private EditText inputOrder;
     private Button sendOrder;
-    private Button easyInput;
+    private Button eIWow;
+    private Button eIWowDb;
+    private Button eIUp;
+    private Button eIDown;
     private ScrollView mScrollView;
+
+    private ArrayList<String> orderList = new ArrayList<>();
+    private int orderIndex = 0;
+    private int downTag = 0;
 
     public static String ORDER_DIALOG_SHOW = "order_dialog_show";
 
@@ -53,41 +70,11 @@ public class MainActivity extends AppCompatActivity {
     String msgAll = "";
 
 
-//
-//
-//    //在handler中更新UI
-//    private  Handler mHandler = new Handler(){
-//        public void handleMessage(Message msg) {
-//            if (!msgAll.equals("")){
-//                Log.v("hhh","sssssss");
-//
-//
-//                    MainActivity.this.runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                            //更新UI
-//                            if (!msgAll.equals(""))
-//                                okok.setText(msgAll);
-//                            okok.setText(msgAll);
-//
-//                        }
-//                    });
-//                sendEmptyMessageDelayed(1,2000);
-//            }
-//
-//        }
-//    };
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         myReceiver = new MyReceiver();
@@ -99,7 +86,12 @@ public class MainActivity extends AppCompatActivity {
         okok = findViewById(R.id.okok);
         inputOrder = findViewById(R.id.input_order);
         sendOrder = findViewById(R.id.send_order);
-        easyInput = findViewById(R.id.easy_input);
+
+        eIWow = findViewById(R.id.easy_input_wow);
+        eIWowDb = findViewById(R.id.easy_input_wow_db);
+        eIUp = findViewById(R.id.easy_input_up);
+        eIDown = findViewById(R.id.easy_input_down);
+
         mScrollView = findViewById(R.id.scroll_view);
 
         mIntent = new Intent(MainActivity.this,ConnService.class);
@@ -114,17 +106,17 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             String order = inputOrder.getText().toString();
-                            msgAll+= order;
-                            if (order.equals("..clear")){
-                                Toast.makeText(MainActivity.this,"清空记录",Toast.LENGTH_LONG).show();
-                                msgAll = "";
-                                okok.setText("  ");
-                            }else{
+                            if (!order.equals("")){
+                                orderList.add(order);
+                                orderIndex = orderList.size();
+                                Log.v("easyinput",String.valueOf(orderIndex)+"  "+String.valueOf(orderList.size()));
                                 SocketManager.bufferedWriter.write(order);
                                 SocketManager.bufferedWriter.newLine();
                                 SocketManager.bufferedWriter.flush();
                                 Log.v("TAG","writeOK:"+inputOrder.getText().toString());
+
                             }
+
 
                         }catch (Exception e){
                             e.getStackTrace();
@@ -137,18 +129,69 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //快捷输入感叹号而已
-        easyInput.setOnClickListener(new View.OnClickListener() {
+        eIWow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 inputOrder.setText("!");
+                inputOrder.setSelection(1);
             }
         });
+
+        eIWowDb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inputOrder.setText("!!");
+                inputOrder.setSelection(2);
+            }
+        });
+
+        eIUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (orderList.size() != 0 && orderIndex > 0){
+                    orderIndex -= 1;
+                    inputOrder.setText(orderList.get(orderIndex));
+                    inputOrder.setSelection(orderList.get(orderIndex).length());
+                    downTag = 0;
+                    Log.v("easyinput",String.valueOf(orderIndex)+"  "+String.valueOf(orderList.size()));
+                }else {
+                    Toast.makeText(MainActivity.this,"到顶啦",Toast.LENGTH_SHORT).show();
+             }
+
+            }
+        });
+
+        eIDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (orderList.size() != 0 && orderIndex < orderList.size()-1){
+                    orderIndex += 1;
+                    Log.v("easyinput",String.valueOf(orderIndex)+"  "+String.valueOf(orderList.size()));
+                    inputOrder.setText(orderList.get(orderIndex));
+                    inputOrder.setSelection(orderList.get(orderIndex).length());
+
+                }else {
+                    if (orderIndex != orderList.size() && downTag == 0){
+                        inputOrder.setText("");
+                        if (orderList.size()!=0){
+                            orderIndex += 1;
+                        }
+                        downTag = 1;
+                        Log.v("easyinput",String.valueOf(orderIndex)+"  "+String.valueOf(orderList.size()));
+                    }
+
+                }
+            }
+        });
+
+
+
 
         okok.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 diyOrderDialog();
-
                 return false;
             }
         });
@@ -170,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        mHandler.sendEmptyMessageDelayed(1,1000);
+//
 
 
     }
@@ -210,26 +253,54 @@ public class MainActivity extends AppCompatActivity {
                         stopService(mIntent);
                         finish();
                     }
+                    if (codeid == 2)
+                    {
+                        final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this);
+                        builder.setTitle("新截图")
+                                .setMessage("是否预览？")
+                                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        showScrDialog(msg);
+
+                                    }
+                                })
+                                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                }).create().show();
+                    }
 
 
                     msgAll += msg;
-
-                    MainActivity.this.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            //更新UI
-                            if (!msgAll.equals(""))
-                                okok.setText(""+msgAll);
-                            inputOrder.setText("");
-                        }
-                    });
-
+                    okok.setText("" + msgAll);
+                    inputOrder.setText("");
 
                 }
             });
         }
     }
+
+    public void showScrDialog(String url){
+//        android.app.AlertDialog.Builder webDialogBuilder = new android.app.AlertDialog.Builder(MainActivity.this);
+//        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+//        View webview = inflater.inflate(R.layout.web_message,null);
+//        WebView webMessage = (WebView)webview.findViewById(R.id.web_message);
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+//            webMessage.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+//        }
+//        webMessage.getSettings().setBlockNetworkImage(false);
+//        webMessage.loadUrl(url);
+//        webDialogBuilder.setView(webview);
+//        webDialogBuilder.show();
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        Uri content_url = Uri.parse(url);
+        intent.setData(content_url);
+        startActivity(intent);    }
 
     @Override
     protected void onDestroy() {
@@ -243,15 +314,6 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-//    @Override
-//    protected void onPause() {
-//        try {
-//            SocketManager.socket.close();
-//        }catch (Exception e){
-//            e.getStackTrace();
-//        }
-//        super.onPause();
-//    }
 
 
     @Override
