@@ -1,5 +1,4 @@
-### 一个简单的远程控制软件 For Android
-
+### 一个简单的远程控制软件 Android控制端
 被控制端/服务器端/PC控制端 [看这里](https://gitee.com/RockChin/GhostJ)
 
  **如何使用** 
