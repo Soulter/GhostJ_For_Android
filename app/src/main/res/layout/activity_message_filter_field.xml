@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MessageFilterField">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="正则表达式"
+        android:id="@+id/input_filter_regex" />
+    <Button
+        android:id="@+id/load_filter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load"/>
+
+
+    <TextView
+        android:id="@+id/filter_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="过滤信息将会显示在这里（实验性功能） \n\n\n\n\n\n\n不想写了"/>
+
+</LinearLayout>

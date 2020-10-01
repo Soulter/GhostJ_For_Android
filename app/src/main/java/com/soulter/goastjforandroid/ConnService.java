@@ -1,22 +1,13 @@
 package com.soulter.goastjforandroid;
 
 import android.app.Service;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.IBinder;
-import android.os.Looper;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.WindowManager;
-import android.webkit.WebView;
-import android.widget.Toast;
-
-import android.app.AlertDialog;
 
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -24,9 +15,15 @@ public class ConnService extends Service {
 
     public static final String COUNTER = "msg";
     public static final String CODE = "codeID";
+    public static final String COUNTER_CLIENT_NAME = "count_client_name";
+    public static final String COUNTER_CLIENT_NUM = "count_client_num";
     public static final String ACTION_NAME = " com.soulter.goastjforandroid.ConnService.COUNTER_ACTION";
 
-    InputStream inputStream = null;
+
+
+
+    private ArrayList<String> clientsName = new ArrayList<>();
+    private ArrayList<String> clientsNum = new ArrayList<>();
 
 
     @Override
@@ -51,20 +48,22 @@ public class ConnService extends Service {
                 int c;
                 try {
                     int loopagain = 0;
-                    char[] chs = new char[1024];
+                    char[] chs;
                     while (loopagain == 0) {
+                        chs = new char[4096];
                         try{
                             c=SocketManager.inputStreamReader.read(chs);
 
                             String s = new String(chs,0,c);  //得到原data
-//                            s = s.replaceAll("\r|\n","&enter&"); //去除换行
-                            Log.v("tag",s);
                             String result = s;
-                            Pattern pattern = Pattern.compile("\\!.*\\!",Pattern.MULTILINE|Pattern.DOTALL);
+                            Pattern pattern = Pattern.compile("\\!.*\\!");
                             Matcher macher = pattern.matcher(s);
+
+                            Log.v("result0",result);
                             if (macher.find()){
-                                Log.v("tag1",macher.group());
-                                switch (macher.group()){
+                                String macherText = macher.group();
+                                Log.v("tag1",macherText);
+                                switch (macherText){
                                     case "!alivem!":{
                                         SocketManager.bufferedWriter.write("#alivem#");
                                         SocketManager.bufferedWriter.newLine();
@@ -88,12 +87,35 @@ public class ConnService extends Service {
 
                                     }
                                     default:{
+                                        Log.v("result",result);
+                                        if (result.contains("!clients ")){
+                                            //检测到Client数据
+                                            Log.v("clientsData",result);
+                                            clientsName.clear();
+                                            clientsNum.clear();
+                                            String clientData = macher.group().replace("!client ","");
+                                            String[] clientList = clientData.split(" "); //未经加工的ClientData
+                                            for (int i = 0; i < clientList.length/6 ; i++){
+                                                clientsName.add(clientList[i*6+2]);
+                                                clientsNum.add(clientList[i*6+1]);
+//                                                ClientsField clientsField = new ClientsField(clientList[i*6],clientList[i*6+1]);
+                                                Log.v("testing",clientList[i*6+1]+"  "+clientList[i*6+2] );
+//                                                clientsFields.add(clientsField);
+                                            }
+                                            bridgeForActivity("",3); //3 是发送心跳给Mainactivity，告知它有了新的client变动
+                                        }
                                         result = macher.replaceAll("");  // REPLACE
                                         break;
                                     }
 
                                 }
 
+                            }
+
+
+                            if(result.contains("!reDir ")){
+                                Log.v("onCheckingRedir","yes");
+                                bridgeForActivity(result,4);
                             }
 
                             if (!result.equals("") || result.length() > 1){
@@ -121,6 +143,7 @@ public class ConnService extends Service {
                             Log.v("TAG","nomoreagain");
                             break;
                         }
+                        chs = null;
                     }
                 }catch (Exception e){
 //                    Out.say("HandleConn","处理连接数据时出错 非致命错误");
@@ -135,12 +158,19 @@ public class ConnService extends Service {
     }
 
     public void bridgeForActivity(String msg,int code){
-        Log.v("TAG","bfa:"+msg);
         Intent intent = new Intent();
         intent.setAction(ACTION_NAME);
-        intent.putExtra(COUNTER,msg);
-        intent.putExtra(CODE,code);
-        sendBroadcast(intent);
+        if (code == 3){ // clientsInfo
+            intent.putExtra(CODE,code);
+            intent.putExtra(COUNTER_CLIENT_NAME,clientsName);
+            intent.putExtra(COUNTER_CLIENT_NUM,clientsNum);
+            sendBroadcast(intent);
+        }else{
+            intent.putExtra(COUNTER,msg);
+            intent.putExtra(CODE,code);
+            sendBroadcast(intent);
+        }
+
     }
 
 

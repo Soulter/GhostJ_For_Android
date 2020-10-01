@@ -71,6 +71,47 @@
             android:layout_height="35dp"
             android:layout_weight="1"/>
 
+        <Button
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/client_focus"
+            android:text="聚焦"
+            android:layout_gravity="end"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"/>
+        <Button
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/chat_entry"
+            android:text="聊天"
+            android:layout_gravity="end"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"/>
+
+
+        <Button
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/msg_filter_entry"
+            android:text="过滤"
+            android:layout_gravity="end"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/create_mode_entry"
+            android:text="创造模式"
+            android:textSize="9dp"
+            android:layout_gravity="end"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -85,7 +126,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_weight="500"
-            android:hint="Input here..." />
+            android:hint="输入操作..."
+            android:background="@null"
+            android:textSize="14dp"
+            />
 
 
         <Button

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<TextView-->
+        <!--android:text="111"-->
+        <!--android:id="@+id/tv_client_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="#000"-->
+        <!--android:textSize="24dp"-->
+        <!--android:layout_marginLeft="16dp"-->
+        <!--android:textStyle="bold"-->
+        <!--android:paddingBottom="16dp"-->
+        <!--android:paddingTop="16dp"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_client_num"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="222"-->
+        <!--android:textSize="20dp"-->
+        <!--gra/>-->
+
+    <androidx.cardview.widget.CardView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="@color/colorCardView"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:background="@drawable/bg_gradient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_client_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clients"
+                android:textSize="26sp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="46dp"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_client_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Num"
+                android:layout_marginLeft="16dp"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="12dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
