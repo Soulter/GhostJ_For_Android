@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +56,7 @@ public class FileExplorerActivity extends AppCompatActivity {
         registerReceiver(myReceiver, intentFilter);
 
         sendOrder("!!rfe dir");
+        progressBar.setVisibility(View.VISIBLE);
 
 
 
@@ -62,6 +65,7 @@ public class FileExplorerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sendOrder("!!rfe cd ..");
                 sendOrder("!!rfe dir");
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -74,7 +78,7 @@ public class FileExplorerActivity extends AppCompatActivity {
         // 在这个方法中可以通过position参数判断出用户点击的是那一个子项
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view,final int position, long id) {
 //                                // 将先要传回的数据放到Intent里
 //                                // 可以用putExtra()的方法，也可以用setXXX()的方法
 //                                Intent intent = new Intent();
@@ -86,6 +90,24 @@ public class FileExplorerActivity extends AppCompatActivity {
                 if (filesFields.get(position).getIsDict() == 1){
                     sendOrder("!!rfe cd "+filesFields.get(position).getfileName());
                     sendOrder("!!rfe dir");
+                    progressBar.setVisibility(View.VISIBLE);
+                }else{
+                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(FileExplorerActivity.this);
+                    builder
+                            .setMessage("是否上传？")
+                            .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    sendOrder("!!rfe upload "+filesFields.get(position).getfileName()+ " " +filesFields.get(position).getfileName());
+                                    Toast.makeText(FileExplorerActivity.this,"开始上传...",Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                }
+                            }).create().show();
                 }
                 Log.v("click!",filesFields.get(position).getfileName());
             }
@@ -93,7 +115,7 @@ public class FileExplorerActivity extends AppCompatActivity {
     }
 
     public void sendOrder(final String order){
-        progressBar.setVisibility(View.VISIBLE);
+
         new Thread(){
             @Override
             public void run() {
@@ -122,6 +144,16 @@ public class FileExplorerActivity extends AppCompatActivity {
                     int codeid = intent.getIntExtra(ConnService.CODE,0);
                     final String msg = intent.getStringExtra(ConnService.COUNTER);
 
+                    if (msg.contains("[FileReceiveEvent]")){
+                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(FileExplorerActivity.this);
+                        builder.setTitle("告知")
+                                .setMessage(msg)
+                                .setPositiveButton("了解", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                    }
+                                }).show();
+                    }
                     //处理登录异常  codeid=1 时是登陆异常的情况。
                     //4 is filesMsg
                     if (codeid == 4){
