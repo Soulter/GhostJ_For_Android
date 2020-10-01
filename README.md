@@ -1,5 +1,10 @@
-### 一个简单的远程控制软件 For Android
+### 一个简单的远程控制软件 Android控制端
+被控制端/服务器端/PC控制端 [看这里](https://gitee.com/RockChin/GhostJ)
 
-客户端/服务器端/PC控制端 [看这里](https://gitee.com/RockChin/GhostJ)  
+ **如何使用** 
 
-QQ 905617992
+需要的东西：正在运行的服务器端GhostJ，服务器端的ip/端口号/密码
+
+在启动界面输入服务器端的ip/端口号/密码即可登录，进入命令行控制界面
+
+QQ 905617992 
