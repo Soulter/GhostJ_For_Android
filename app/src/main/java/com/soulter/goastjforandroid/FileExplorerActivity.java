@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FileExplorerActivity extends AppCompatActivity {
@@ -36,6 +37,13 @@ public class FileExplorerActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private ListView listView;
+
+
+    String atomCanliu = "";
+
+    sendOrder sendOrder = new sendOrder();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +63,7 @@ public class FileExplorerActivity extends AppCompatActivity {
         //注册广播
         registerReceiver(myReceiver, intentFilter);
 
-        sendOrder("!!rfe dir");
+        sendOrder.send("!!rfe dir");
         progressBar.setVisibility(View.VISIBLE);
 
 
@@ -63,8 +71,8 @@ public class FileExplorerActivity extends AppCompatActivity {
         filePreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendOrder("!!rfe cd ..");
-                sendOrder("!!rfe dir");
+                sendOrder.send("!!rfe cd ..");
+                sendOrder.send("!!rfe dir");
                 progressBar.setVisibility(View.VISIBLE);
             }
         });
@@ -88,8 +96,8 @@ public class FileExplorerActivity extends AppCompatActivity {
 //                                // RESULT_OK就是一个默认值，=-1，它说OK就OK吧
 //                                finish();
                 if (filesFields.get(position).getIsDict() == 1){
-                    sendOrder("!!rfe cd "+filesFields.get(position).getfileName());
-                    sendOrder("!!rfe dir");
+                    sendOrder.send("!!rfe cd "+filesFields.get(position).getfileName());
+                    sendOrder.send("!!rfe dir");
                     progressBar.setVisibility(View.VISIBLE);
                 }else{
                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(FileExplorerActivity.this);
@@ -98,7 +106,7 @@ public class FileExplorerActivity extends AppCompatActivity {
                             .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    sendOrder("!!rfe upload "+filesFields.get(position).getfileName()+ " " +filesFields.get(position).getfileName());
+                                    sendOrder.send("!!rfe upload "+filesFields.get(position).getfileName()+ " " +filesFields.get(position).getfileName());
                                     Toast.makeText(FileExplorerActivity.this,"开始上传...",Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -114,23 +122,6 @@ public class FileExplorerActivity extends AppCompatActivity {
         });
     }
 
-    public void sendOrder(final String order){
-
-        new Thread(){
-            @Override
-            public void run() {
-                try {
-
-                    SocketManager.bufferedWriter.write(order);
-                    SocketManager.bufferedWriter.newLine();
-                    SocketManager.bufferedWriter.flush();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        }.start();
-    }
-
 
 
     @SuppressWarnings("unchecked")
@@ -144,16 +135,19 @@ public class FileExplorerActivity extends AppCompatActivity {
                     int codeid = intent.getIntExtra(ConnService.CODE,0);
                     final String msg = intent.getStringExtra(ConnService.COUNTER);
 
-                    if (msg.contains("[FileReceiveEvent]")){
-                        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(FileExplorerActivity.this);
-                        builder.setTitle("告知")
-                                .setMessage(msg)
-                                .setPositiveButton("了解", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                    }
-                                }).show();
+                    if (msg != null){
+                        if (msg.contains("[FileReceiveEvent]")){
+                            android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(FileExplorerActivity.this);
+                            builder.setTitle("告知")
+                                    .setMessage(msg)
+                                    .setPositiveButton("了解", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                        }
+                                    }).show();
+                        }
                     }
+
                     //处理登录异常  codeid=1 时是登陆异常的情况。
                     //4 is filesMsg
                     if (codeid == 4){
@@ -162,6 +156,8 @@ public class FileExplorerActivity extends AppCompatActivity {
                         Log.v("mr2",msg+codeid);
                         fileName.clear();
                         fileSize.clear();
+
+
 
 
 //                        String fileData = msg.replace("!reDir ","");
@@ -182,19 +178,44 @@ public class FileExplorerActivity extends AppCompatActivity {
                             for (int i = 1; i < fileDataList.length ; i++){
                                 atomFile = fileDataList[i].split("\\:");
                                 Log.v("fileAtom",atomFile.length+"");
-                                if (atomFile[1].equals("true")){
-                                    atomIsDic = 1; //is dic.
-                                }else{
-                                    atomIsDic = 0;
-                                }
+                                if (atomFile.length == 3){
+                                    if (atomFile[1].equals("true")){
+                                        atomIsDic = 1; //is dic.
+                                    }else{
+                                        atomIsDic = 0;
+                                    }
 
-                                FilesField filesField =  new FilesField(atomFile[0],String.valueOf(Long.valueOf(atomFile[2])/1024)+" KB",atomIsDic);
-                                filesFields.add(filesField);
-                                Log.v("testingFile",atomFile[0]+atomFile[2]+"   "+atomIsDic);
+                                    FilesField filesField =  new FilesField(atomFile[0],String.valueOf(Long.valueOf(atomFile[2])/1024)+" KB",atomIsDic);
+                                    filesFields.add(filesField);
+                                    Log.v("testingFile",atomFile[0]+atomFile[2]+"   "+atomIsDic);
+                                }
+//                                else{
+//                                    atomCanliu += fileDataList[i];
+//                                    Log.v("atomcanliu",atomCanliu);
+//                                    atomFile = fileDataList[i].split("\\:");
+//                                    if (atomFile.length == 3){
+//                                        atomCanliu = "";
+//                                        if (atomFile[1].equals("true")){
+//                                            atomIsDic = 1; //is dic.
+//                                        }else{
+//                                            atomIsDic = 0;
+//                                        }
+//
+//                                        FilesField filesField =  new FilesField(atomFile[0],String.valueOf(Long.valueOf(atomFile[2])/1024)+" KB",atomIsDic);
+//                                        filesFields.add(filesField);
+//                                        Log.v("testingFile",atomFile[0]+atomFile[2]+"   "+atomIsDic);
+//                                    }
+//                                }
+
                             }
                             filesListAdapter.notifyDataSetChanged();
                             progressBar.setVisibility(View.INVISIBLE);
 //                            listView.setAdapter(filesListAdapter);
+                        }else{
+                            FilesField filesField =  new FilesField("空文件夹","空文件夹",0);
+                            filesFields.add(filesField);
+                            filesListAdapter.notifyDataSetChanged();
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
 
 

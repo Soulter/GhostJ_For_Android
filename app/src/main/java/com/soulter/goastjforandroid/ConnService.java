@@ -7,7 +7,10 @@ import android.util.Log;
 
 
 import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +20,7 @@ public class ConnService extends Service {
     public static final String CODE = "codeID";
     public static final String COUNTER_CLIENT_NAME = "count_client_name";
     public static final String COUNTER_CLIENT_NUM = "count_client_num";
+    public static final String COUNTER_FOCUSING = "count_focusing";
     public static final String ACTION_NAME = " com.soulter.goastjforandroid.ConnService.COUNTER_ACTION";
 
 
@@ -24,6 +28,7 @@ public class ConnService extends Service {
 
     private ArrayList<String> clientsName = new ArrayList<>();
     private ArrayList<String> clientsNum = new ArrayList<>();
+    private String focusingClient = "";
 
 
     @Override
@@ -50,14 +55,59 @@ public class ConnService extends Service {
                     int loopagain = 0;
                     char[] chs;
                     while (loopagain == 0) {
-                        chs = new char[4096];
+                        chs = new char[12000];
+
+
                         try{
+
                             c=SocketManager.inputStreamReader.read(chs);
+
+
+                            Log.v("char length:","   "+chs.length +"  c:  "+c);
+                            Log.v("char[] display:","   "+ Arrays.toString(chs));
 
                             String s = new String(chs,0,c);  //得到原data
                             String result = s;
+
+
+                            //Clients
+                            if (result.contains("!clients ")){
+                                //检测到Client数据
+                                Log.v("clientsData","appear. result:"+result);
+                                try{
+                                    String clientData = result.substring(result.indexOf("!clients ") + 1, result.lastIndexOf("!"));
+                                    Log.v("clientsData-get","get:"+clientData);
+                                    clientsName.clear();
+                                    clientsNum.clear();
+
+                                    String[] clientList = clientData.split(" "); //未经加工的ClientData
+                                    for (int i = 0; i < clientList.length/6 ; i++){
+                                        clientsName.add(clientList[i*6+2]);
+                                        clientsNum.add(clientList[i*6+1]);
+                                        if (clientList[i*6+4].equals("true")){
+                                            focusingClient = clientList[i*6+2];
+                                            Log.v("clientsData-focusing","get:"+focusingClient);
+                                        }
+
+//                                                ClientsField clientsField = new ClientsField(clientList[i*6],clientList[i*6+1]);
+//                                                Log.v("testing",clientList[i*6+1]+"  "+clientList[i*6+2] );
+//                                                clientsFields.add(clientsField);
+                                    }
+                                    bridgeForActivity("",3); //3 是发送心跳给Mainactivity，告知它有了新的client变动
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+
+
                             Pattern pattern = Pattern.compile("\\!.*\\!");
                             Matcher macher = pattern.matcher(s);
+
+//                            Pattern pattern2 = Pattern.compile("\\!client.*\\!");
+//                            Matcher macher2 = pattern2.matcher(s);
+//                            Log.v("test:",macher2.group());
 
                             Log.v("result0",result);
                             if (macher.find()){
@@ -87,23 +137,7 @@ public class ConnService extends Service {
 
                                     }
                                     default:{
-                                        Log.v("result",result);
-                                        if (result.contains("!clients ")){
-                                            //检测到Client数据
-                                            Log.v("clientsData",result);
-                                            clientsName.clear();
-                                            clientsNum.clear();
-                                            String clientData = macher.group().replace("!client ","");
-                                            String[] clientList = clientData.split(" "); //未经加工的ClientData
-                                            for (int i = 0; i < clientList.length/6 ; i++){
-                                                clientsName.add(clientList[i*6+2]);
-                                                clientsNum.add(clientList[i*6+1]);
-//                                                ClientsField clientsField = new ClientsField(clientList[i*6],clientList[i*6+1]);
-                                                Log.v("testing",clientList[i*6+1]+"  "+clientList[i*6+2] );
-//                                                clientsFields.add(clientsField);
-                                            }
-                                            bridgeForActivity("",3); //3 是发送心跳给Mainactivity，告知它有了新的client变动
-                                        }
+                                        Log.v("defalt","defalt");
                                         result = macher.replaceAll("");  // REPLACE
                                         break;
                                     }
@@ -113,8 +147,9 @@ public class ConnService extends Service {
                             }
 
 
+
                             if(result.contains("!reDir ")){
-                                Log.v("onCheckingRedir","yes");
+//                                Log.v("onCheckingRedir","yes： "+result);
                                 bridgeForActivity(result,4);
                             }
 
@@ -126,8 +161,9 @@ public class ConnService extends Service {
                             Pattern patternUrl = Pattern.compile("http://[^\\s]*",Pattern.MULTILINE|Pattern.DOTALL);
                             final Matcher macherUrl = patternUrl.matcher(s);
                             while (macherUrl.find()){
-                                Log.v("abc",macherUrl.group());
+//                                Log.v("abc",macherUrl.group());
                                 bridgeForActivity(macherUrl.group(),2);
+
                             }
 
 
@@ -164,6 +200,7 @@ public class ConnService extends Service {
             intent.putExtra(CODE,code);
             intent.putExtra(COUNTER_CLIENT_NAME,clientsName);
             intent.putExtra(COUNTER_CLIENT_NUM,clientsNum);
+            intent.putExtra(COUNTER_FOCUSING,focusingClient);
             sendBroadcast(intent);
         }else{
             intent.putExtra(COUNTER,msg);

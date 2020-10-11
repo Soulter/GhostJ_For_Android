@@ -71,15 +71,16 @@ public class MainActivity extends AppCompatActivity {
     private Button msgFilter;
     private Button chatBtn;
     private Button createModeBtn;
+    private Button screenshotBtn;
     private ScrollView mScrollView;
 
     private ArrayList<String> orderList = new ArrayList<>();
     private ArrayList<String> autoCompList = new ArrayList<>();
 
-    private List clientsFields;
+
     private ArrayList<String> clientsName = new ArrayList<>();
     private ArrayList<String> clientsNum = new ArrayList<>();
-
+    private String focusingClient = "";
 
     ArrayList<String> autoCompResult = new ArrayList<>();
     private int orderIndex = 0;
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
     public static String CLIENT_DATA_NAME_SEC = "client_name_sec";
     public static String CLIENT_DATA_NUM_SEC = "client_num_sec";
     public static String ALL_MESSAGE_TAG = "all_of_the_message";
+
     public static final int REQUEST_FOCUS_CLIENT_CODE = 1;
 
 
@@ -126,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         msgFilter = findViewById(R.id.msg_filter_entry);
         chatBtn = findViewById(R.id.chat_entry);
         createModeBtn = findViewById(R.id.create_mode_entry);
+        screenshotBtn = findViewById(R.id.screenshot_entry);
 
         mScrollView = findViewById(R.id.scroll_view);
 
@@ -265,8 +268,17 @@ public class MainActivity extends AppCompatActivity {
         createModeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(MainActivity.this, FileExplorerActivity.class);
+                startActivity(intent);
+            }
+        });
+        screenshotBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ScreenshotActivity.class);
+                intent.putStringArrayListExtra(CLIENT_DATA_NAME_SEC,clientsName);
+                intent.putExtra(ConnService.COUNTER_FOCUSING,focusingClient);
+                Log.v("scrname","get: "+focusingClient);
                 startActivity(intent);
             }
         });
@@ -342,22 +354,22 @@ public class MainActivity extends AppCompatActivity {
                             finish();
                         }else if (codeid == 2)
                         {
-                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this);
-                            builder.setTitle("新截图")
-                                    .setMessage("是否预览？")
-                                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            showScrDialog(msg);
-
-                                        }
-                                    })
-                                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-
-                                        }
-                                    }).create().show();
+//                            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(MainActivity.this);
+//                            builder.setTitle("新截图")
+//                                    .setMessage("是否预览？")
+//                                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialogInterface, int i) {
+//                                            showScrDialog(msg);
+//
+//                                        }
+//                                    })
+//                                    .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+//                                        @Override
+//                                        public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                                        }
+//                                    }).create().show();
                         } else if(codeid == 3)// clientsInfo
                         {
 //                        clientsFields = null;
@@ -366,6 +378,7 @@ public class MainActivity extends AppCompatActivity {
                         clientsNum.clear();
                         clientsName = intent.getStringArrayListExtra(ConnService.COUNTER_CLIENT_NAME);
                         clientsNum = intent.getStringArrayListExtra(ConnService.COUNTER_CLIENT_NUM);
+                        focusingClient = intent.getStringExtra(ConnService.COUNTER_FOCUSING);
                         clientFocus.setText("聚焦("+clientsNum.size()+")");
 //                        clientsFields = Arrays.asList(intent.getStringExtra(ConnService.COUNTER).substring(1,intent.getStringExtra(ConnService.COUNTER).length()-1).split(", "));
                         Log.v("clients2LvData",clientsName.toString()+" "+clientsNum.toString());

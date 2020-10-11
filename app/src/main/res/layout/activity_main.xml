@@ -112,6 +112,17 @@
             android:layout_height="35dp"
             android:layout_weight="1"/>
 
+        <Button
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimaryDark"
+            android:id="@+id/screenshot_entry"
+            android:text="SCR"
+            android:textSize="9dp"
+            android:layout_gravity="end"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -127,9 +138,7 @@
             android:layout_marginLeft="8dp"
             android:layout_weight="500"
             android:hint="输入操作..."
-            android:background="@null"
-            android:textSize="14dp"
-            />
+            android:background="@null" />
 
 
         <Button

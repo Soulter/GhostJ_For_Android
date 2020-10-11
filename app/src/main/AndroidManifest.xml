@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".FileExplorerActivity"></activity>
+        <activity
+            android:name=".ScrSettingActivity"
+            android:label="@string/title_activity_scr_setting"></activity>
+        <activity android:name=".ScreenshotActivity" />
+        <activity android:name=".FileExplorerActivity" />
         <activity android:name=".MessageFilterField" />
         <activity android:name=".ClientsFieldActivity" />
         <activity android:name=".DiyOrderActivity" />

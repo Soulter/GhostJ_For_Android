@@ -4,7 +4,7 @@
     <color name="colorPrimary">#228BE6</color>
     <!--<color name="colorPrimaryDark">#00574B</color>-->
     <color name="colorPrimaryDark">#228BE6</color>
-    <color name="colorAccent">#228BE6</color>
+    <color name="colorAccent">#CDDC39</color>
     <color name="colorCardView">#3090E2</color>
     <color name="colorCardDark">#228BE6</color>
     <color name="gradientStart">#2BB3F1</color>

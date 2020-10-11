@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -60,6 +63,8 @@ public class LoginActivity extends AppCompatActivity {
             loginStatus.setText(loginStatusStr);
         }
 
+
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -74,6 +79,9 @@ public class LoginActivity extends AppCompatActivity {
                 editor.apply();
                 editor.putString("psw",psw);
                 editor.apply();
+
+
+
 
                 new Thread(new Runnable() {
                     @Override
@@ -97,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                             SocketManager.bufferedWriter.write("#pw "+psw);
                             SocketManager.bufferedWriter.newLine();
                             SocketManager.bufferedWriter.flush();
-                            Thread.sleep(500);
+                            Thread.sleep(350);
 
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
@@ -109,8 +117,14 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }).start();
 
+
             }
         });
+
+//        if (!ipEditText.getText().toString().equals("") && !portEditText.getText().toString().equals("") && !passwordEditText.getText().toString().equals("")){
+//            loginButton.performClick();
+//            Toast.makeText(this,"尊敬的VIP,已为您自动登录[doge]",Toast.LENGTH_SHORT).show();
+//        }
 
     }
 }

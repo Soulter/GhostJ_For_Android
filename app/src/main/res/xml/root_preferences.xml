@@ -1,0 +1,21 @@
+<androidx.preference.PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="设置">
+
+        <EditTextPreference
+            app:key="scr_argument"
+            app:title="参数(分辨率/颜色空间压缩比例)"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="!!scr lc.png 0.5 0.05"/>
+
+        <EditTextPreference
+            app:key="period_time"
+            app:title="间隔时间"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="2000"/>
+
+
+    </PreferenceCategory>
+
+
+</androidx.preference.PreferenceScreen>
