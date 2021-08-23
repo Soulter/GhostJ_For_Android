@@ -20,15 +20,39 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/file_path_tv"
-            android:text="---------------"
-            android:textSize="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            />
+            android:orientation="horizontal">
+
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/file_path_tv"
+                android:text="---------------"
+                android:textSize="16dp"
+                android:layout_weight="4"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@null"
+                />
+
+            <Button
+                android:id="@+id/open_path_btn"
+                android:layout_width="35dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:background="?android:attr/selectableItemBackground"
+                android:text="去往"
+                />
+
+
+
+        </LinearLayout>
+
+
 
 
 

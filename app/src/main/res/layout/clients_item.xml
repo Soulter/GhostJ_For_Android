@@ -5,25 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<TextView-->
-        <!--android:text="111"-->
-        <!--android:id="@+id/tv_client_name"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textColor="#000"-->
-        <!--android:textSize="24dp"-->
-        <!--android:layout_marginLeft="16dp"-->
-        <!--android:textStyle="bold"-->
-        <!--android:paddingBottom="16dp"-->
-        <!--android:paddingTop="16dp"/>-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/tv_client_num"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="222"-->
-        <!--android:textSize="20dp"-->
-        <!--gra/>-->
 
     <androidx.cardview.widget.CardView
 
@@ -51,7 +32,7 @@
                 android:text="Clients"
                 android:textSize="26sp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="46dp"
+                android:layout_marginTop="28dp"
                 android:textColor="#ffffff"
                 android:textStyle="bold" />
 

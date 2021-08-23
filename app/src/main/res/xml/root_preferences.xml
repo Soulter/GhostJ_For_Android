@@ -14,6 +14,12 @@
             app:useSimpleSummaryProvider="true"
             app:defaultValue="2000"/>
 
+        <EditTextPreference
+            app:key="new_f"
+            app:title="启动缩放图片功能 0否1是"
+            app:useSimpleSummaryProvider="true"
+            app:defaultValue="0"/>
+
 
     </PreferenceCategory>
 

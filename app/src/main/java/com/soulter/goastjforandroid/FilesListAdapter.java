@@ -49,11 +49,16 @@ public class FilesListAdapter extends ArrayAdapter<FilesField> {
 
         // 获取控件实例，并调用set...方法使其显示出来
         viewHolder.fileName.setText(filesField.getfileName());
-        viewHolder.fileSize.setText(filesField.getfileSize());
+
         if (filesField.getIsDict() == 1){
             viewHolder.dictTag.setVisibility(View.VISIBLE);
-        }else
+            viewHolder.fileSize.setText("");
+        }else{
+            viewHolder.fileSize.setText(filesField.getfileSize());
             viewHolder.dictTag.setVisibility(View.INVISIBLE);
+
+        }
+
         return view;
 
     }

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CmdTableActivity"
+    android:orientation="vertical">
+
+
+    <ScrollView
+    android:id="@+id/scroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="10">
+
+    <TextView
+    android:id="@+id/okok"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:text="Waiting..."
+    android:textColor="#000"
+    android:textSize="15dp"
+    android:layout_marginBottom="48dp"/>
+
+    </ScrollView>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <Button
+    android:background="?android:attr/selectableItemBackground"
+    android:textColor="@color/colorPrimaryDark"
+    android:id="@+id/easy_input_wow"
+    android:text="！"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_weight="1"/>
+
+    <Button
+    android:background="?android:attr/selectableItemBackground"
+    android:textColor="@color/colorPrimaryDark"
+    android:id="@+id/easy_input_wow_db"
+    android:text="! !"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_weight="1"/>
+
+    <Button
+    android:background="?android:attr/selectableItemBackground"
+    android:textColor="@color/colorPrimaryDark"
+    android:id="@+id/easy_input_up"
+    android:text="↑"
+    android:layout_gravity="end"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_weight="1"/>
+
+    <Button
+    android:background="?android:attr/selectableItemBackground"
+    android:textColor="@color/colorPrimaryDark"
+    android:id="@+id/easy_input_down"
+    android:text="↓"
+    android:layout_gravity="end"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_weight="1"/>
+
+    <Button
+    android:background="?android:attr/selectableItemBackground"
+    android:textColor="@color/colorPrimaryDark"
+    android:id="@+id/chat_entry"
+    android:text="聊天"
+    android:layout_gravity="end"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_weight="1"/>
+
+
+    <Button
+    android:background="?android:attr/selectableItemBackground"
+    android:textColor="@color/colorPrimaryDark"
+    android:id="@+id/msg_filter_entry"
+    android:text="过滤"
+    android:layout_gravity="end"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_weight="1"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+
+    <EditText
+    android:id="@+id/input_order"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_weight="500"
+    android:hint="输入操作..."
+    android:background="@null" />
+
+
+    <Button
+    android:background="?android:attr/selectableItemBackground"
+    android:textColor="@color/colorPrimary"
+    android:id="@+id/send_order"
+    android:text="发送"
+    android:layout_width="wrap_content"
+    android:layout_weight="1"
+    android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</LinearLayout>

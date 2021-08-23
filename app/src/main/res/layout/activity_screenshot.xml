@@ -11,6 +11,7 @@
 
 
 
+
         <androidx.cardview.widget.CardView
             android:id="@+id/screenshot_refresh"
             android:layout_width="match_parent"
@@ -84,6 +85,9 @@
 
 
 
+
+
+
     <androidx.cardview.widget.CardView
         android:layout_below="@id/screenshot_refresh"
         android:id="@+id/scr_setting_entry"
@@ -125,6 +129,79 @@
         android:layout_marginLeft="8dp"
         android:layout_centerInParent="true"
         />
+
+    <com.wuzy.photoviewex.PhotoView
+        android:id="@+id/screenshot_image1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_marginLeft="8dp"
+        android:layout_centerInParent="true"/>
+
+
+    <Button
+        android:id="@+id/save_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="保存图片"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_below="@id/screenshot_image"
+        android:layout_centerHorizontal="true"/>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/scr_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="声音"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_below="@id/get_a_scr"
+            />
+
+
+        <EditText
+            android:id="@+id/input_order_scr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="8dp"
+            android:hint="输入操作..."
+            android:background="@null"
+            android:layout_alignParentBottom="true"/>
+
+
+        <Button
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/send_order_scr"
+            android:text="发送并截图"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"/>
+
+    </LinearLayout>
+
+    <Button
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_above="@+id/scr_input_layout"
+        android:textColor="@color/colorPrimary"
+        android:id="@+id/get_a_scr"
+        android:text="截 一 次 图"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+
+
 
 
 

@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -120,11 +121,6 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
-//        if (!ipEditText.getText().toString().equals("") && !portEditText.getText().toString().equals("") && !passwordEditText.getText().toString().equals("")){
-//            loginButton.performClick();
-//            Toast.makeText(this,"尊敬的VIP,已为您自动登录[doge]",Toast.LENGTH_SHORT).show();
-//        }
 
     }
 }

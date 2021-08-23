@@ -8,15 +8,264 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
-    
-    <ScrollView
-        android:id="@+id/scroll_view"
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+
+        android:id="@+id/client_focus"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10">
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="@color/colorCardView"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:background="@drawable/bg_gradient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/main_tv_focus_num_now"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="聚焦"
+                android:textSize="26sp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="46dp"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/main_tv_focus_now"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginLeft="16dp"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="12dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
+
+        android:id="@+id/create_mode_entry"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="@color/colorCardView"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:background="@drawable/bg_gradient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="目录"
+                android:textSize="26sp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="46dp"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="查看目录"
+                android:layout_marginLeft="16dp"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="12dp"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+
+            android:id="@+id/screenshot_entry"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/colorCardView"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:background="@drawable/bg_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="截图"
+                    android:textSize="26sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="46dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="查看图片"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#ffffff"
+                    android:layout_marginBottom="12dp"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/colorCardView"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:background="@drawable/bg_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="敬请期待..."
+                    android:textSize="26sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="46dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="敬请期待"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#ffffff"
+                    android:layout_marginBottom="12dp"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+
+            android:id="@+id/command_table_entry"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"              app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/colorCardView"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardElevation="8dp">
+
+            <LinearLayout
+                android:background="@drawable/bg_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="指令台..."
+                    android:textSize="26sp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="46dp"
+                    android:textColor="#ffffff"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="命令行模式"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#ffffff"
+                    android:layout_marginBottom="12dp"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scroll_view_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:layout_marginBottom="8dp">
 
         <TextView
-            android:id="@+id/okok"
+            android:id="@+id/okok_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
@@ -27,135 +276,6 @@
             android:layout_marginBottom="48dp"/>
 
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/easy_input_wow"
-            android:text="！"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"/>
-
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/easy_input_wow_db"
-            android:text="! !"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"/>
-
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/easy_input_up"
-            android:text="↑"
-            android:layout_gravity="end"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"/>
-
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/easy_input_down"
-            android:text="↓"
-            android:layout_gravity="end"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"/>
-
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/client_focus"
-            android:text="聚焦"
-            android:layout_gravity="end"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"/>
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/chat_entry"
-            android:text="聊天"
-            android:layout_gravity="end"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"/>
-
-
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/msg_filter_entry"
-            android:text="过滤"
-            android:layout_gravity="end"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"/>
-
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/create_mode_entry"
-            android:text="创造模式"
-            android:textSize="9dp"
-            android:layout_gravity="end"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"/>
-
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimaryDark"
-            android:id="@+id/screenshot_entry"
-            android:text="SCR"
-            android:textSize="9dp"
-            android:layout_gravity="end"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_weight="1"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <EditText
-            android:id="@+id/input_order"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_weight="500"
-            android:hint="输入操作..."
-            android:background="@null" />
-
-
-        <Button
-            android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorPrimary"
-            android:id="@+id/send_order"
-            android:text="发送"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-
-
-
-
 
 </LinearLayout>
 

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,15 +32,15 @@ public class FileExplorerActivity extends AppCompatActivity {
     private ArrayList<String> fileSize = new ArrayList<>();
     private ArrayList<FilesField> filesFields = new ArrayList<>();
     private String pathNow = "";
-    private TextView pathTv;
+    private EditText pathTv;
     private Button filePreBtn;
+    private Button openPathBtn;
     FilesListAdapter filesListAdapter;
     private ProgressBar progressBar;
 
     private ListView listView;
 
 
-    String atomCanliu = "";
 
     sendOrder sendOrder = new sendOrder();
 
@@ -59,6 +60,7 @@ public class FileExplorerActivity extends AppCompatActivity {
         listView = findViewById(R.id.files_list);
         pathTv = findViewById(R.id.file_path_tv);
         filePreBtn = findViewById(R.id.file_ope_previous);
+        openPathBtn = findViewById(R.id.open_path_btn);
         progressBar = findViewById(R.id.progressbar_file);
         //注册广播
         registerReceiver(myReceiver, intentFilter);
@@ -96,7 +98,7 @@ public class FileExplorerActivity extends AppCompatActivity {
 //                                // RESULT_OK就是一个默认值，=-1，它说OK就OK吧
 //                                finish();
                 if (filesFields.get(position).getIsDict() == 1){
-                    sendOrder.send("!!rfe cd "+filesFields.get(position).getfileName());
+                    sendOrder.send("!!rfe cd "+filesFields.get(position).getfileName().replace(" ","?"));
                     sendOrder.send("!!rfe dir");
                     progressBar.setVisibility(View.VISIBLE);
                 }else{
@@ -120,6 +122,18 @@ public class FileExplorerActivity extends AppCompatActivity {
                 Log.v("click!",filesFields.get(position).getfileName());
             }
         });
+
+        openPathBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                sendOrder.send("!!rfe cd "+pathTv.getText().toString().replace(" ","?"));
+                sendOrder.send("!!rfe dir");
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
+
+
     }
 
 

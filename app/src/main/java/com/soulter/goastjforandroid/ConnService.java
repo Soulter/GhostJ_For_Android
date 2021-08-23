@@ -1,7 +1,8 @@
-package com.soulter.goastjforandroid;
+opackage com.soulter.goastjforandroid;
 
 import android.app.Service;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -56,27 +57,18 @@ public class ConnService extends Service {
                     char[] chs;
                     while (loopagain == 0) {
                         chs = new char[12000];
-
-
                         try{
-
                             c=SocketManager.inputStreamReader.read(chs);
-
-
-                            Log.v("char length:","   "+chs.length +"  c:  "+c);
-                            Log.v("char[] display:","   "+ Arrays.toString(chs));
-
                             String s = new String(chs,0,c);  //得到原data
                             String result = s;
-
 
                             //Clients
                             if (result.contains("!clients ")){
                                 //检测到Client数据
-                                Log.v("clientsData","appear. result:"+result);
+//                                Log.v("clientsData","appear. result:"+result);
                                 try{
                                     String clientData = result.substring(result.indexOf("!clients ") + 1, result.lastIndexOf("!"));
-                                    Log.v("clientsData-get","get:"+clientData);
+//                                    Log.v("clientsData-get","get:"+clientData);
                                     clientsName.clear();
                                     clientsNum.clear();
 
@@ -86,7 +78,7 @@ public class ConnService extends Service {
                                         clientsNum.add(clientList[i*6+1]);
                                         if (clientList[i*6+4].equals("true")){
                                             focusingClient = clientList[i*6+2];
-                                            Log.v("clientsData-focusing","get:"+focusingClient);
+//                                            Log.v("clientsData-focusing","get:"+focusingClient);
                                         }
 
 //                                                ClientsField clientsField = new ClientsField(clientList[i*6],clientList[i*6+1]);
@@ -149,8 +141,10 @@ public class ConnService extends Service {
 
 
                             if(result.contains("!reDir ")){
-//                                Log.v("onCheckingRedir","yes： "+result);
+                                Log.v("onCheckingRedir","yes： "+result);
+
                                 bridgeForActivity(result,4);
+                                result = "";
                             }
 
                             if (!result.equals("") || result.length() > 1){
@@ -166,6 +160,17 @@ public class ConnService extends Service {
 
                             }
 
+//                            Pattern patternAudio = Pattern.compile("pa:audio[^\\s]*",Pattern.MULTILINE|Pattern.DOTALL);
+//                            final Matcher macherAudio = patternAudio.matcher(s);
+//                            while (macherAudio.find()){
+////                                Log.v("abc",macherUrl.group());
+//                                bridgeForActivity("get",6);
+//
+//                            }
+                            if (s.contains("[FileReceiveEvent]成功")&&s.contains("audio.wMASKav")){
+//                                Log.v("AudioTag","get!");
+                                bridgeForActivity("get",6);
+                            }
 
                         }catch (Exception e){
 //                            Out.say("HandleConn","接受数据出错，连接正在重置");
