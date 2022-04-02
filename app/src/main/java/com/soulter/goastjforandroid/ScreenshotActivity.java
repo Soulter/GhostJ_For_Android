@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -75,7 +76,7 @@ public class ScreenshotActivity extends AppCompatActivity {
     Button getAscr;
     Button savePic;
     Button audio;
-
+    Button audioEntry;
     PhotoView photoView ;
     private Drawable drawable;
     Timer timer;
@@ -106,8 +107,10 @@ public class ScreenshotActivity extends AppCompatActivity {
         }
 
 
-
         focusingclient = getIntent().getStringExtra(ConnService.COUNTER_FOCUSING);
+        if (focusingclient.equals("")){
+            focusingclient = "当前未聚焦...";
+        }
         Log.v("focus", focusingclient);
         //注册广播
         myReceiver = new MyReceiver3();
@@ -127,11 +130,11 @@ public class ScreenshotActivity extends AppCompatActivity {
         getAscr = findViewById(R.id.get_a_scr);
         savePic = findViewById(R.id.save_pic);
         audio = findViewById(R.id.audio);
+        audioEntry = findViewById(R.id.audio_settin_entry);
         photoView = (PhotoView) findViewById(R.id.screenshot_image1);
         progressBar.setVisibility(View.VISIBLE);
         savePic.setVisibility(View.INVISIBLE);
         scrArgument = prefs.getString("scr_argument","!!scr lc.png 0.5 0.05");
-
         scrCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,11 +229,14 @@ public class ScreenshotActivity extends AppCompatActivity {
                     audioOn = 0;
                     audio.setText("声音关");
                 }
+            }
+        });
 
 
-
-
-
+        audioEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(ScreenshotActivity.this);
             }
         });
 

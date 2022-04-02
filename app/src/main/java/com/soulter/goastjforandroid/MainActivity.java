@@ -305,14 +305,7 @@ public class MainActivity extends AppCompatActivity {
                             }else{
                                 okok.setText(msgAll);
                             }
-
-
                         }
-
-
-
-
-
                 }
             });
         }

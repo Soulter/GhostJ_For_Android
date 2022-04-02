@@ -134,14 +134,12 @@ public class CmdTableActivity extends AppCompatActivity {
 
                                 orderList.add(order);
                                 orderIndex = orderList.size();
-                                Log.v("easyinput",String.valueOf(orderIndex)+"  "+String.valueOf(orderList.size()));
                                 if (msgChatTag == 1){
                                     sendOrder("!echo "+order);
                                 }else {
                                     sendOrder(order);
                                 }
 
-                                Log.v("TAG","writeOK:"+inputOrder.getText().toString());
 
                             }
 
@@ -182,7 +180,6 @@ public class CmdTableActivity extends AppCompatActivity {
                     inputOrder.setText(orderList.get(orderIndex));
                     inputOrder.setSelection(orderList.get(orderIndex).length());
                     downTag = 0;
-                    Log.v("easyinput",String.valueOf(orderIndex)+"  "+String.valueOf(orderList.size()));
                 }else {
                     Toast.makeText(CmdTableActivity.this,"到顶啦",Toast.LENGTH_SHORT).show();
                 }
@@ -195,7 +192,6 @@ public class CmdTableActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (orderList.size() != 0 && orderIndex < orderList.size()-1){
                     orderIndex += 1;
-                    Log.v("easyinput",String.valueOf(orderIndex)+"  "+String.valueOf(orderList.size()));
                     inputOrder.setText(orderList.get(orderIndex));
                     inputOrder.setSelection(orderList.get(orderIndex).length());
 
@@ -206,7 +202,7 @@ public class CmdTableActivity extends AppCompatActivity {
                             orderIndex += 1;
                         }
                         downTag = 1;
-                        Log.v("easyinput",String.valueOf(orderIndex)+"  "+String.valueOf(orderList.size()));
+
                     }
 
                 }
@@ -324,7 +320,6 @@ public class CmdTableActivity extends AppCompatActivity {
                         focusingClient = intent.getStringExtra(ConnService.COUNTER_FOCUSING);
 //                        clientFocus.setText("聚焦("+clientsNum.size()+")");
 //                        clientsFields = Arrays.asList(intent.getStringExtra(ConnService.COUNTER).substring(1,intent.getStringExtra(ConnService.COUNTER).length()-1).split(", "));
-                        Log.v("clients2LvData",clientsName.toString()+" "+clientsNum.toString());
                     }else if (codeid == 0){
                         Log.v("tag",codeid+"\n"+msg);
                         spannableStringBuilder.append("\n<<<"+msg);
@@ -354,6 +349,7 @@ public class CmdTableActivity extends AppCompatActivity {
         String msgChatStr = "";
         String[] msgChats = msgAll.split("\n");
         for (String line : msgChats){
+            Log.v("lwl_tag_easyInput_debug","msgChats_line:"+line);
             if (line.indexOf("[TransCmd-echo]") == 0){
                 msgChatStr += "\n"+line;
                 okok.setText(msgChatStr);
@@ -369,7 +365,6 @@ public class CmdTableActivity extends AppCompatActivity {
     public void showAutoComplete(){
         final ListPopupWindow listPopupWindow = new ListPopupWindow(this);
         listPopupWindow.setAnchorView(inputOrder);
-
         autoCompList.add("!focus ");
         autoCompList.add("!exit ");
         autoCompList.add("!!rft upload ");

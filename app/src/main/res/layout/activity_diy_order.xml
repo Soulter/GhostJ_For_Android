@@ -6,14 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".DiyOrderActivity"
     android:orientation="vertical">
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="自定义命令"
+        android:textSize="28dp"
+        android:textColor="#000"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        >
+    </TextView>
 
     <EditText
         android:id="@+id/order_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="为该命令起个好听的名字吧"/>
+        android:hint="为该命令起个好听的名字吧"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
 
     <EditText
         android:id="@+id/order_content"
@@ -22,13 +35,17 @@
         android:hint="命令内容..."
         android:inputType="textMultiLine"
         android:gravity="top|left"
-        android:layout_marginTop="36dp"/>
+        android:layout_marginTop="36dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
 
     <Button
         android:id="@+id/apply_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Apply"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
 
 </LinearLayout>

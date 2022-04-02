@@ -45,6 +45,7 @@ public class FileExplorerActivity extends AppCompatActivity {
     sendOrder sendOrder = new sendOrder();
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,6 @@ public class FileExplorerActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.VISIBLE);
             }
         });
-
 
 
         filesFields.add(new FilesField("","",0));

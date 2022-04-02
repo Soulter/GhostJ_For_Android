@@ -34,10 +34,6 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-
-
-
-
         final EditText ipEditText = findViewById(R.id.userip);
         final EditText portEditText = findViewById(R.id.userport);
         final EditText passwordEditText = findViewById(R.id.password);
