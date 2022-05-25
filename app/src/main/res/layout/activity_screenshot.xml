@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ScreenshotActivity"
+    tools:context=".activity.ScreenshotActivity"
     android:orientation="vertical">
 
 
@@ -137,12 +137,11 @@
 
     <Button
         android:id="@+id/save_pic"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="保存图片"
+        android:layout_below="@id/screenshot_image1"
         android:background="?android:attr/selectableItemBackground"
-        android:layout_below="@id/screenshot_image"
-        android:layout_centerHorizontal="true"/>
+        android:text="分享图片" />
 
 
 
@@ -208,8 +207,8 @@
             android:layout_width="wrap_content"
             android:textColor="@color/colorPrimary"
             android:layout_height="wrap_content"
-            android:text="声音设置"
-            android:id="@+id/audio_settin_entry">
+            android:text="全屏打开"
+            android:id="@+id/full_screen_screenshot_view_btn">
 
         </Button>
     </LinearLayout>

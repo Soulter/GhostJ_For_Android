@@ -1,4 +1,4 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.util;
 
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;

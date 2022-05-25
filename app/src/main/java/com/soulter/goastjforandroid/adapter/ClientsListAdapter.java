@@ -1,4 +1,4 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+
+import com.soulter.goastjforandroid.pojo.ClientsField;
+import com.soulter.goastjforandroid.R;
 
 import java.util.List;
 

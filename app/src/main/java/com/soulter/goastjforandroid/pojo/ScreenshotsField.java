@@ -1,4 +1,4 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.pojo;
 
 public class ScreenshotsField {
     private String fileName;

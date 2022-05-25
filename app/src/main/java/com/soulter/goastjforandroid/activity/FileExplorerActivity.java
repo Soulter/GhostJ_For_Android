@@ -1,8 +1,7 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,19 +10,20 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
+import com.soulter.goastjforandroid.service.ConnService;
+import com.soulter.goastjforandroid.pojo.FilesField;
+import com.soulter.goastjforandroid.adapter.FilesListAdapter;
+import com.soulter.goastjforandroid.R;
+import com.soulter.goastjforandroid.util.sendOrder;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class FileExplorerActivity extends AppCompatActivity {
     private MyReceiver2 myReceiver;
@@ -42,7 +42,7 @@ public class FileExplorerActivity extends AppCompatActivity {
 
 
 
-    sendOrder sendOrder = new sendOrder();
+    com.soulter.goastjforandroid.util.sendOrder sendOrder = new sendOrder();
 
 
 

@@ -1,8 +1,10 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.pojo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.soulter.goastjforandroid.R;
 
 public class MessageFilterField extends AppCompatActivity {
 

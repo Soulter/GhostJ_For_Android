@@ -1,33 +1,26 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -36,20 +29,19 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.arialyy.aria.core.Aria;
+import com.soulter.goastjforandroid.service.ConnService;
+import com.soulter.goastjforandroid.R;
+import com.soulter.goastjforandroid.util.sendOrder;
 import com.wuzy.photoviewex.PhotoView;
 
-import org.w3c.dom.Text;
-
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -60,7 +52,7 @@ public class ScreenshotActivity extends AppCompatActivity {
     private IntentFilter intentFilter;
 //    ArrayList<String> clientsName = new ArrayList<>();
 
-    sendOrder sendOrder = new sendOrder();
+    com.soulter.goastjforandroid.util.sendOrder sendOrder = new sendOrder();
     SharedPreferences prefs;
     String scrLink = "";
     String audioLink = "";
@@ -76,7 +68,7 @@ public class ScreenshotActivity extends AppCompatActivity {
     Button getAscr;
     Button savePic;
     Button audio;
-    Button audioEntry;
+    Button fullImageViewBtn;
     PhotoView photoView ;
     private Drawable drawable;
     Timer timer;
@@ -130,7 +122,7 @@ public class ScreenshotActivity extends AppCompatActivity {
         getAscr = findViewById(R.id.get_a_scr);
         savePic = findViewById(R.id.save_pic);
         audio = findViewById(R.id.audio);
-        audioEntry = findViewById(R.id.audio_settin_entry);
+        fullImageViewBtn = findViewById(R.id.full_screen_screenshot_view_btn);
         photoView = (PhotoView) findViewById(R.id.screenshot_image1);
         progressBar.setVisibility(View.VISIBLE);
         savePic.setVisibility(View.INVISIBLE);
@@ -201,13 +193,11 @@ public class ScreenshotActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (drawable!=null){
-                    Log.v("tag","okokokokokokok");
-                    bmp2Uri(ScreenshotActivity.this,drawableToBitmap(drawable));
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_SEND);
                     intent.putExtra(Intent.EXTRA_STREAM, bmp2Uri(ScreenshotActivity.this,drawableToBitmap(drawable)));
                     intent.setType("image/jpeg");
-                    startActivity(Intent.createChooser(intent,"要把地球发给谁呢qwq?"));
+                    startActivity(Intent.createChooser(intent,"分享图片"));
                 }
 
             }
@@ -216,14 +206,10 @@ public class ScreenshotActivity extends AppCompatActivity {
         audio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (audioOn == 0){
                     audioOn = 1;
                     audio.setText("声音开");
                     sendOrder.send("!!audio");
-
-
-
 
                 }else{
                     audioOn = 0;
@@ -233,10 +219,14 @@ public class ScreenshotActivity extends AppCompatActivity {
         });
 
 
-        audioEntry.setOnClickListener(new View.OnClickListener() {
+        fullImageViewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(ScreenshotActivity.this);
+                if (drawable != null){
+                    Intent intent = new Intent(ScreenshotActivity.this, ScreenshotViewActivity.class);
+                    intent.putExtra("scr",bitmap2Bytes(drawableToBitamp(drawable)));
+                    startActivity(intent);
+                }
             }
         });
 
@@ -334,10 +324,6 @@ public class ScreenshotActivity extends AppCompatActivity {
                     //对网上资源进行下载转换位图图片
 //                    bitmap = BitmapFactory.decodeStream(inputStream);
 //                    inputStream.close();
-
-
-
-
                     drawable = Drawable.createFromStream(inputStream,"scr.jpg");
                     count+=1;
 
@@ -397,6 +383,34 @@ public class ScreenshotActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * drawable转化成bitmap的方法
+     * @param drawable 需要转换的Drawable
+     */
+    public static Bitmap drawableToBitamp(Drawable drawable) {
+        int w = drawable.getIntrinsicWidth();
+        int h = drawable.getIntrinsicHeight();
+        System.out.println("Drawable转Bitmap");
+        Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565;
+        Bitmap bitmap = Bitmap.createBitmap(w,h,config);
+        //注意，下面三行代码要用到，否在在View或者surfaceview里的canvas.drawBitmap会看不到图
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, w, h);
+        drawable.draw(canvas);
+        return bitmap;
+    }
+
+    /**
+     * bitmap转化成byte数组
+     * @param bm 需要转换的Bitmap
+     * @return
+     */
+    public static byte[] bitmap2Bytes(Bitmap bm){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        return baos.toByteArray();
+    }
+
     public void verifyStoragePermissions() {
         // Check if we have write permission
         final int REQUEST_EXTERNAL_STORAGE = 1;
@@ -420,16 +434,11 @@ public class ScreenshotActivity extends AppCompatActivity {
             audioLink = "http://39.100.5.139/ghost/audio/" + focusingclient + "/audio.wav";
             try {
 
-
-
                 URL url = new URL(audioLink);
                     InputStream inputStream = url.openStream();
 
                     int length;
                     byte[] bytes = new byte[1024 * 10*10];
-
-
-
 
                     File appFile = new File(Environment.getExternalStorageDirectory()+File.separator+"ghost");
                     if (!appFile.exists()){
@@ -508,11 +517,14 @@ public class ScreenshotActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         unregisterReceiver(myReceiver);
-        try {
-            timer.cancel();
-        }catch (Exception e){
-            e.printStackTrace();
+        if (timer != null){
+            try {
+                timer.cancel();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
+
 
         super.onDestroy();
     }

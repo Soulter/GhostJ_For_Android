@@ -1,4 +1,4 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.pojo;
 
 public class FilesField {
     private String fileName;

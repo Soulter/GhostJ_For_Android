@@ -1,4 +1,4 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.util;
 
 public class sendOrder {
     public void send(final String order){

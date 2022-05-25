@@ -1,10 +1,11 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.service;
 
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 
+
+import com.soulter.goastjforandroid.util.SocketManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,7 +23,7 @@ public class ConnService extends Service {
     public static final String COUNTER_CLIENT_NAME = "count_client_name";
     public static final String COUNTER_CLIENT_NUM = "count_client_num";
     public static final String COUNTER_FOCUSING = "count_focusing";
-    public static final String ACTION_NAME = " com.soulter.goastjforandroid.ConnService.COUNTER_ACTION";
+    public static final String ACTION_NAME = " com.soulter.goastjforandroid.service.ConnService.COUNTER_ACTION";
 
     public static Timer msgCollectTimer = new Timer();
     public static StringBuilder msgCache = new StringBuilder();
@@ -204,7 +205,10 @@ public class ConnService extends Service {
 
                 case "!finish!":{
                     result = matcher.replaceAll("");  // REPLACE
-                    bridgeForActivity("连接已断开",1);
+                    /*
+                        !finish!的逻辑暂时注释掉
+                     */
+//                    bridgeForActivity("连接已断开",1);
                 }
                 default:{
                     result = matcher.replaceAll("");  // REPLACE

@@ -1,9 +1,8 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.soulter.goastjforandroid.R;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;

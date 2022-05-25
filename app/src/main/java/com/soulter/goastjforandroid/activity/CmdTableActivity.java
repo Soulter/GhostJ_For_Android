@@ -1,6 +1,5 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.activity;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,6 +32,10 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.soulter.goastjforandroid.service.ConnService;
+import com.soulter.goastjforandroid.pojo.MessageFilterField;
+import com.soulter.goastjforandroid.R;
+import com.soulter.goastjforandroid.util.SocketManager;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.io.File;
-import java.util.ArrayList;
+import com.soulter.goastjforandroid.pojo.FilesField;
+import com.soulter.goastjforandroid.R;
+
 import java.util.List;
 
 public class FilesListAdapter extends ArrayAdapter<FilesField> {

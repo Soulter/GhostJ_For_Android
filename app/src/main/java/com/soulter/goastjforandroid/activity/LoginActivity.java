@@ -1,4 +1,4 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,20 +8,18 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.soulter.goastjforandroid.R;
+import com.soulter.goastjforandroid.util.SocketManager;
 
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
-import java.util.Random;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -75,10 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 editor.apply();
                 editor.putString("psw",psw);
                 editor.apply();
-
-
-
-
 
                 new Thread(new Runnable() {
                     @Override

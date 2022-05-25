@@ -1,4 +1,4 @@
-package com.soulter.goastjforandroid;
+package com.soulter.goastjforandroid.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,28 +11,27 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.soulter.goastjforandroid.pojo.ClientsField;
+import com.soulter.goastjforandroid.adapter.ClientsListAdapter;
+import com.soulter.goastjforandroid.R;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ClientsFieldActivity extends AppCompatActivity {
 
-    private List<ClientsField> clientsFields = new ArrayList<>();
+    private final List<ClientsField> clientsFields = new ArrayList<>();
     private ArrayList<String> clientsName = new ArrayList<>();
-    private ArrayList<String> clientsNum = new ArrayList<>();
-    private TextView titleName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ciients_field);
 
-//        clientsFields = Arrays.asList(getIntent().getStringExtra(MainActivity.CLIENT_DATA).substring(1,getIntent().getStringExtra(MainActivity.CLIENT_DATA).length()-1).split(", "));
-//        ClientsListAdapter = new ClientsListAdapter(this, R.layout.clients_item, clientsFields);
-
-        titleName = findViewById(R.id.title_clients_activity);
+        TextView titleName = findViewById(R.id.title_clients_activity);
 
         clientsName = getIntent().getStringArrayListExtra(MainActivity.CLIENT_DATA_NAME_SEC);
-        clientsNum = getIntent().getStringArrayListExtra(MainActivity.CLIENT_DATA_NUM_SEC);
+        ArrayList<String> clientsNum = getIntent().getStringArrayListExtra(MainActivity.CLIENT_DATA_NUM_SEC);
         initClientData(clientsName, clientsNum);
 
         titleName.setText("建立的连接"+"("+clientsName.size()+"):");

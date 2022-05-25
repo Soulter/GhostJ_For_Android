@@ -1,64 +1,31 @@
-package com.soulter.goastjforandroid;
-
+package com.soulter.goastjforandroid.activity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.os.StrictMode;
-import android.text.Editable;
-import android.text.Spannable;
-import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
-import android.text.TextWatcher;
-import android.text.method.ScrollingMovementMethod;
-import android.text.style.ForegroundColorSpan;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListPopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.soulter.goastjforandroid.service.ConnService;
+import com.soulter.goastjforandroid.R;
+import com.soulter.goastjforandroid.util.SocketManager;
+import com.soulter.goastjforandroid.util.sendOrder;
 
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
-import java.lang.reflect.Type;
-import java.net.MulticastSocket;
-import java.net.Socket;
-import java.security.KeyStore;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -74,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private CardView cmdEntry;
     private ScrollView mScrollView;
 
-    private sendOrder sendOrder = new sendOrder();
+    private com.soulter.goastjforandroid.util.sendOrder sendOrder = new sendOrder();
 
 
     private ArrayList<String> clientsName = new ArrayList<>();
@@ -246,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                     //获取从Service中传来的data
                     int codeid = intent.getIntExtra(ConnService.CODE,0);
                         final String msg = intent.getStringExtra(ConnService.COUNTER);
-                        //处理登录异常  codeid=1 时是登陆异常的情况。
+                        //处理登录异常
                         if (codeid == 1){
                             try{
                                 SocketManager.bufferedWriter.write("#close#");
