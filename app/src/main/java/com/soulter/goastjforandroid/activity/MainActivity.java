@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView okok;
     private TextView focusNowTv;
     private TextView focusNumNowTv;
-    private CardView clientFocus;
     private CardView createModeBtn;
     private CardView screenshotBtn;
     private CardView cmdEntry;
@@ -87,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(myReceiver, intentFilter);
 
         okok = findViewById(R.id.okok_main);
-        clientFocus = findViewById(R.id.client_focus);
         createModeBtn = findViewById(R.id.create_mode_entry);
         screenshotBtn = findViewById(R.id.screenshot_entry);
         focusNowTv = findViewById(R.id.main_tv_focus_now);
@@ -99,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
         mIntent = new Intent(MainActivity.this,ConnService.class);
         startService(mIntent);
 
-        clientFocus.setOnClickListener(new View.OnClickListener() {
+
+        focusNumNowTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ClientsFieldActivity.class);

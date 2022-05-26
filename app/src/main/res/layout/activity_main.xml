@@ -9,28 +9,8 @@
     tools:context=".activity.MainActivity"
     android:orientation="vertical">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
-
-    <androidx.cardview.widget.CardView
-
-        android:id="@+id/client_focus"
-        android:layout_weight="1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="@color/colorCardView"
-        android:foreground="?attr/selectableItemBackground"
-        app:cardElevation="8dp">
 
         <LinearLayout
-            android:background="@drawable/bg_gradient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -40,10 +20,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="聚焦"
-                android:textSize="26sp"
+                android:textSize="32sp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="46dp"
-                android:textColor="#ffffff"
+                android:layout_marginTop="18dp"
+                android:textColor="#000"
                 android:textStyle="bold" />
 
             <TextView
@@ -52,25 +32,22 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:layout_marginLeft="16dp"
-                android:textColor="#ffffff"
+                android:textColor="#000"
                 android:layout_marginBottom="12dp"/>
 
         </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
 
 
 
     <androidx.cardview.widget.CardView
 
         android:id="@+id/create_mode_entry"
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
         app:cardCornerRadius="12dp"
         app:cardBackgroundColor="@color/colorCardView"
         android:foreground="?attr/selectableItemBackground"
@@ -79,7 +56,7 @@
         <LinearLayout
             android:background="@drawable/bg_gradient"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <TextView
@@ -95,36 +72,25 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:text="查看目录"
                 android:layout_marginLeft="16dp"
-                android:textColor="#ffffff"
-                android:layout_marginBottom="12dp"/>
+                android:textColor="#ffffff" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
 
-
-
-</LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <androidx.cardview.widget.CardView
 
             android:id="@+id/screenshot_entry"
-            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"            app:cardCornerRadius="12dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"            app:cardCornerRadius="12dp"
             app:cardBackgroundColor="@color/colorCardView"
             android:foreground="?attr/selectableItemBackground"
             app:cardElevation="8dp">
@@ -132,7 +98,7 @@
             <LinearLayout
                 android:background="@drawable/bg_gradient"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -158,68 +124,15 @@
         </androidx.cardview.widget.CardView>
 
 
-
-        <androidx.cardview.widget.CardView
-
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"            app:cardCornerRadius="12dp"
-            app:cardBackgroundColor="@color/colorCardView"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:background="@drawable/bg_gradient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="敬请期待..."
-                    android:textSize="26sp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="46dp"
-                    android:textColor="#ffffff"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="敬请期待"
-                    android:layout_marginLeft="16dp"
-                    android:textColor="#ffffff"
-                    android:layout_marginBottom="12dp"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <androidx.cardview.widget.CardView
 
             android:id="@+id/command_table_entry"
-            android:layout_weight="1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"              app:cardCornerRadius="12dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"              app:cardCornerRadius="12dp"
             app:cardBackgroundColor="@color/colorCardView"
             android:foreground="?attr/selectableItemBackground"
             app:cardElevation="8dp">
@@ -227,7 +140,7 @@
             <LinearLayout
                 android:background="@drawable/bg_gradient"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -252,17 +165,11 @@
 
         </androidx.cardview.widget.CardView>
 
-
-
-
-    </LinearLayout>
-
     <ScrollView
         android:id="@+id/scroll_view_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:layout_marginBottom="8dp">
+        android:layout_marginTop="8dp">
 
         <TextView
             android:id="@+id/okok_main"

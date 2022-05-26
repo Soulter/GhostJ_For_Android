@@ -1,7 +1,10 @@
 package com.soulter.goastjforandroid.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.Preference;
@@ -10,6 +13,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import com.soulter.goastjforandroid.R;
 
 public class ScrSettingActivity extends AppCompatActivity {
+
+    private static final String NAME = "ScrSettingActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +34,15 @@ public class ScrSettingActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-
-
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        Intent intent = new Intent();
+        intent.putExtra("activity", NAME);
+        // 设置返回码和返回携带的数据
+        setResult(Activity.RESULT_OK, intent);
+        super.onDestroy();
     }
 }

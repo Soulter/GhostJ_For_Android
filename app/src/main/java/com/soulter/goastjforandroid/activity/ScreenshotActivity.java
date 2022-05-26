@@ -1,11 +1,13 @@
 package com.soulter.goastjforandroid.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.preference.PreferenceManager;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -52,6 +54,8 @@ public class ScreenshotActivity extends AppCompatActivity {
     private IntentFilter intentFilter;
 //    ArrayList<String> clientsName = new ArrayList<>();
 
+    private static final int SCR_SETTING_ACTIVITY_REQUEST_CODE = 3;
+
     com.soulter.goastjforandroid.util.sendOrder sendOrder = new sendOrder();
     SharedPreferences prefs;
     String scrLink = "";
@@ -88,16 +92,7 @@ public class ScreenshotActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_screenshot);
 
-
         prefs = PreferenceManager.getDefaultSharedPreferences(ScreenshotActivity.this);
-        scrArgument = prefs.getString("scr_argument","!!scr lc.png 0.5 0.05");
-        try {
-            scrPeriodTime = Integer.parseInt(prefs.getString("period_time","3000"));
-            scaleTag =Integer.parseInt(prefs.getString("new_f","0"));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
 
         focusingclient = getIntent().getStringExtra(ConnService.COUNTER_FOCUSING);
         if (focusingclient.equals("")){
@@ -126,22 +121,17 @@ public class ScreenshotActivity extends AppCompatActivity {
         photoView = (PhotoView) findViewById(R.id.screenshot_image1);
         progressBar.setVisibility(View.VISIBLE);
         savePic.setVisibility(View.INVISIBLE);
-        scrArgument = prefs.getString("scr_argument","!!scr lc.png 0.5 0.05");
+        /*
+            更新设置参数
+         */
+        updateArguments();
         scrCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (scrGetTag == 0){
-
-
-                    try {
-                        scrPeriodTime = Integer.parseInt(prefs.getString("period_time","3000"));
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-
                     scrGetTag = 1;
                     timer = new Timer();
-                    timer.schedule(new ScrTask(),100,scrPeriodTime);
+                    timer.schedule(new ScrTask(),100, scrPeriodTime);
                     scrLoadingStatus.setText("轻触停止循环截图");
                 }else{
                     scrGetTag = 0;
@@ -162,7 +152,7 @@ public class ScreenshotActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ScreenshotActivity.this,ScrSettingActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, SCR_SETTING_ACTIVITY_REQUEST_CODE);
             }
         });
 
@@ -199,7 +189,6 @@ public class ScreenshotActivity extends AppCompatActivity {
                     intent.setType("image/jpeg");
                     startActivity(Intent.createChooser(intent,"分享图片"));
                 }
-
             }
         });
 
@@ -218,7 +207,6 @@ public class ScreenshotActivity extends AppCompatActivity {
             }
         });
 
-
         fullImageViewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -233,12 +221,21 @@ public class ScreenshotActivity extends AppCompatActivity {
         verifyStoragePermissions();
 
         scrName.setText(focusingclient);
-
         sendOrder.send(scrArgument);
         scrGetTag = 2;
 
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode){
+            case SCR_SETTING_ACTIVITY_REQUEST_CODE: {
+                updateArguments();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void playWav(final String path) {
@@ -292,8 +289,6 @@ public class ScreenshotActivity extends AppCompatActivity {
                     int codeid = intent.getIntExtra(ConnService.CODE,0);
                     final String msg = intent.getStringExtra(ConnService.COUNTER);
 
-
-
                     if (codeid == 6){
                         Log.v("audioGet", msg);
                         audioLink = msg;
@@ -304,24 +299,20 @@ public class ScreenshotActivity extends AppCompatActivity {
                         Log.v("screenLink", msg);
                         scrLink = msg;
                         new Thread(getScreenshot).start();
-
                     }
 
                 }
             });
         }
     }
-    private Runnable getScreenshot = new Runnable() {
+    private final Runnable getScreenshot = new Runnable() {
 
         @Override
         public void run() {
             try {
                 if (!TextUtils.isEmpty(scrLink)) { //网络图片
-                    // 对资源链接
                     URL url = new URL(scrLink);
-                    //打开输入流
                     InputStream inputStream = url.openStream();
-                    //对网上资源进行下载转换位图图片
 //                    bitmap = BitmapFactory.decodeStream(inputStream);
 //                    inputStream.close();
                     drawable = Drawable.createFromStream(inputStream,"scr.jpg");
@@ -379,9 +370,9 @@ public class ScreenshotActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
     };
+
 
     /**
      * drawable转化成bitmap的方法
@@ -425,6 +416,7 @@ public class ScreenshotActivity extends AppCompatActivity {
                     REQUEST_EXTERNAL_STORAGE);
         }
     }
+
 
 
     private Runnable getAudio = new Runnable() {
@@ -510,6 +502,16 @@ public class ScreenshotActivity extends AppCompatActivity {
 
         }
         return null;
+    }
+
+    private void updateArguments(){
+        scrArgument = prefs.getString("scr_argument","!!scr lc.png 0.5 0.05");
+        try {
+            scrPeriodTime = Integer.parseInt(prefs.getString("period_time","3000"));
+            scaleTag =Integer.parseInt(prefs.getString("new_f","1"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
