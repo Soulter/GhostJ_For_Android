@@ -1,5 +1,5 @@
 ## 一个简单的远程控制软件 Android控制端
-被控制端/服务器端/PC控制端以及教程请 [看这里](https://github.com/RockChinQ/GhostJ)
+被控制端/服务器端/PC控制端以及教程请 [看这里https://github.com/RockChinQ/GhostJ](https://github.com/RockChinQ/GhostJ)
 
 ## 如何使用 
 
